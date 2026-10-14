@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+// created dashboardSlice, defined initialState
 const dashboardSlice  = createSlice({
 	name: 'dashboard',
 
