@@ -190,7 +190,14 @@ const App = () => {
 			<DashboardHeader />
 			<main>
 				<section>
-					<SearchBar />
+					<SearchBar 
+            baseCurrency={baseCurrency}
+            search={search}
+            searchMatches={searchMatches}
+            onCurrencyChange={handleCurrencyChange}
+            onSearchChange={(value) => dispatch(setSearch(value))}
+            onChooseCoin={chooseCoin}
+          />
 					<PriceChart />
 					<div> 
 						<PortfolioCard />
