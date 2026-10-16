@@ -3,14 +3,14 @@ import { formatMoney } from '../utils/formatMoney'
 import CoinIdentity from './CoinIdentity'
 import StyledSelect from './StyledSelect'
 
-export default function SearchBar({
+const SearchBar = ({
   baseCurrency,
   search,
   searchMatches,
   onCurrencyChange,
   onSearchChange,
   onChooseCoin,
-}) {
+}) => {
   return (
     // Pairing the currency selector with live coin suggestions and keyboard shortcuts.
     <div className='grid grid-cols-[89px_minmax(0,1fr)] gap-[15px] max-[600px]:grid-cols-[76px_minmax(0,1fr)] max-[600px]:gap-2'>
@@ -24,7 +24,7 @@ export default function SearchBar({
             label: 'National currencies',
             options: currencies.map(({ code, name }) => ({
               value: code,
-              label: `${code} · ${name}`,
+              label: `${code}`,
             })),
           },
         ]}
@@ -75,3 +75,5 @@ export default function SearchBar({
     </div>
   )
 }
+
+export default SearchBar

@@ -53,14 +53,7 @@ const StyledSelect = ({
         <span className='min-w-0 truncate'>
           {selectedOption?.label ?? value}
         </span>
-        <svg
-          className={`pointer-events-none absolute right-[13px] h-3 w-3 text-[#53665b] transition-transform ${open ? 'rotate-180' : ''}`}
-          viewBox='0 0 12 12'
-          fill='none'
-          aria-hidden='true'
-        >
-          <path d='m2 4 4 4 4-4' stroke='currentColor' strokeWidth='1.5' />
-        </svg>
+      
       </button>
       {open && (
         <div

@@ -198,7 +198,19 @@ const App = () => {
             onSearchChange={(value) => dispatch(setSearch(value))}
             onChooseCoin={chooseCoin}
           />
-					<PriceChart />
+					<PriceChart 
+            activeCoins={activeCoins}
+            baseCurrency={baseCurrency}
+            chartData={chartData}
+            chartOptions={chartOptions}
+            chartType={chartType}
+            coins={coins}
+            range={range}
+            selectedCoinIds={selectedCoinIds}
+            onChartTypeChange={(type) => dispatch(setChartType(type))}
+            onRangeChange={(days) => dispatch(setRange(days))}
+            onSelectedCoinsChange={(ids) => dispatch(setSelectedCoinIds(ids))}
+          />
 					<div> 
 						<PortfolioCard />
 						<ExchangeCard />
