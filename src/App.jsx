@@ -1,7 +1,9 @@
+import DashboardHeader from './components/DashboardHeader'
+
 
 const App = () => {
 	return (
-		<h1>CoinPulse</h1>
+		<DashboardHeader />
 	)
 }
 
