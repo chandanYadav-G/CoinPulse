@@ -85,7 +85,7 @@ const App = () => {
 
     const coinById =  Object.fromEntries(coins.map((coin) => [coin.id, coin]))
 
-    const activeCoins = [] //selectedCoinIds.map((id) => coinById[id]).filter(Boolean)
+    const activeCoins = selectedCoinIds.map((id) => coinById[id]).filter(Boolean)
 
     // Limit suggestions to five name/symbol matches to keep search results focused.
     const searchMatches = search.trim()

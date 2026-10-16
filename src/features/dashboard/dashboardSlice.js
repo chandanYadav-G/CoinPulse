@@ -9,7 +9,7 @@ const dashboardSlice  = createSlice({
 		chartType: 'Line',
 		range: '7',
 		search: '',
-		selectedCoins: ['ethereum']
+		selectedCoinIds: ['ethereum']
 	},
 
 	reducers: {
@@ -17,7 +17,7 @@ const dashboardSlice  = createSlice({
 		setChartType: (state, action) => { state.chartType = action.payload },
 		setRange: (state, action) => { state.range = action.payload },
 		setSearch: (state, action) => { state.search = action.payload },
-		setSelectedCoins: (state, action) => { state.selectedCoins = action.payload },
+		setSelectedCoinIds: (state, action) => { state.selectedCoinIds = action.payload },
 	},
 })
 
