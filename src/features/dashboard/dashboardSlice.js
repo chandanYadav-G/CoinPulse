@@ -26,7 +26,7 @@ export const {
 	setChartType,
 	setRange,
 	setSearch,
-	setSelectedCoins,
+	setSelectedCoinIds,
 } = dashboardSlice.actions
 
 export const selectBaseCurrency = (state) => state.dashboard.baseCurrency

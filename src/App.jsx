@@ -11,17 +11,22 @@ import {
   setRange,
   setSearch,
   setSelectedCoinIds,
-} from './features/dashboard/dashboardSlice
+} from './features/dashboard/dashboardSlice'
 
 import {
   useGetExchangeRatesQuery,
   useGetMarketDataQuery,
   useGetMarketHistoryQuery,
   useGetSimplePricesQuery,
-} from ./services/coinGeckoApi
+} from './services/coinGeckoApi'
 
 import { currencies } from './constants/dashboard'
 import DashboardHeader from './components/DashboardHeader'
+import ExchangeCard from './components/ExchangeCard'
+import MarketCapList from './components/MarketCapList'
+import PortfolioCard from './components/PortfolioCard'
+import PriceChart from './components/PriceChart'
+import SearchBar from './components/SearchBar'
 
 const coinColors = ['#4f8f83', '#8b79b5', '#d58c70', '#c4a354', '#6686a3']
 
@@ -80,7 +85,7 @@ const App = () => {
 
     const coinById =  Object.fromEntries(coins.map((coin) => [coin.id, coin]))
 
-    const activeCoins = selectedCoinIds.map((id) => coinById[id]).filter(Boolean)
+    const activeCoins = [] //selectedCoinIds.map((id) => coinById[id]).filter(Boolean)
 
     // Limit suggestions to five name/symbol matches to keep search results focused.
     const searchMatches = search.trim()
@@ -180,7 +185,22 @@ const App = () => {
     .sort((a, b) => (b.market_cap ?? 0) - (a.market_cap ?? 0))
     .slice(0, 7)
 
-	return ()
+	return (
+		<div> 
+			<DashboardHeader />
+			<main>
+				<section>
+					<SearchBar />
+					<PriceChart />
+					<div> 
+						<PortfolioCard />
+						<ExchangeCard />
+					</div>
+				</section>
+				<MarketCapList />
+			</main>
+		</div>
+	)
 }
 
 export default App

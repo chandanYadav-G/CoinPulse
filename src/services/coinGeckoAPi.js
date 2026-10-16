@@ -1,4 +1,4 @@
-import { createApi, fetBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const COIN_GECKO_API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
 
