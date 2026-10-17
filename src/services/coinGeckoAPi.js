@@ -43,7 +43,7 @@ export const coinGeckoApi = createApi({
 	        },
 	      }),
 	      //processing response before storing result in cache
-	      transformResponse: (coins) => coins.map((coin) => ({
+	      transformResponse: (coins) => coins.map((coin) => ({ // this transformation is producing the same output as the api response. Not changing the data structure
 	        ...coin,
 	        color: coin.color,
 	      })),
@@ -58,6 +58,7 @@ export const coinGeckoApi = createApi({
 	        },
 	      }),
 	      // processing response from the api
+	      // this transformation is is converting the output into an object after flattening the array from the response. 
 	      transformResponse: (prices, _meta, { currency }) =>
 	        Object.fromEntries(
 	          Object.entries(prices).flatMap(([id, values]) =>

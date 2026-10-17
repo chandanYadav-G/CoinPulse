@@ -210,6 +210,16 @@ return (
             />
           </div>
 
+          {/*Showing error msg if the api response fails*/}
+          {apiError && (
+            <div
+              className="rounded-lg border border-[#e5d6b7] bg-[#fbf6e9] px-3 py-[9px] text-[11px] leading-[1.4] text-[#806b3e]"
+              role="status"
+            >
+              {apiErrorMessage}
+            </div>
+          )}
+
           {/* Price chart spans both columns */}
           <div className="col-span-2 min-w-0 max-[600px]:col-span-1">
             <PriceChart
