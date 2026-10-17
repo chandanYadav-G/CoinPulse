@@ -212,11 +212,25 @@ const App = () => {
             onSelectedCoinsChange={(ids) => dispatch(setSelectedCoinIds(ids))}
           />
 					<div> 
-						<PortfolioCard />
-						<ExchangeCard />
+						<PortfolioCard 
+              baseCurrency={baseCurrency}
+              currencyRate={currencyRate}
+            />
+						<ExchangeCard 
+              baseCurrency={baseCurrency}
+              coins={coins}
+              coinById={coinById}
+              exchangeRates={exchangeRates}
+            />
 					</div>
 				</section>
-				<MarketCapList />
+				<MarketCapList 
+          coins={displayedMarketCoins}
+          baseCurrency={baseCurrency}
+          isFetching={isFetchingMarkets || isFetchingLivePrices}
+          selectedCoinIds={selectedCoinIds}
+          onSelectCoin={(coin) => dispatch(setSelectedCoinIds([coin.id]))}
+        />
 			</main>
 		</div>
 	)
