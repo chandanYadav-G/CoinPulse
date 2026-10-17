@@ -42,7 +42,7 @@ export const coinGeckoApi = createApi({
 	          price_change_percentage: '24h',
 	        },
 	      }),
-	      // processing response before storing result in cache
+	      //processing response before storing result in cache
 	      transformResponse: (coins) => coins.map((coin) => ({
 	        ...coin,
 	        color: coin.color,
@@ -57,6 +57,7 @@ export const coinGeckoApi = createApi({
 	          vs_currencies: currency,
 	        },
 	      }),
+	      // processing response from the api
 	      transformResponse: (prices, _meta, { currency }) =>
 	        Object.fromEntries(
 	          Object.entries(prices).flatMap(([id, values]) =>
@@ -65,13 +66,11 @@ export const coinGeckoApi = createApi({
 	              : [],
 	          ),
 	        ),
-	      keepUnusedDataFor: 60,
 	    }),
 
 	    getExchangeRates: builder.query({	// using frankfurter Api for exchange rates 
 	      query: (baseCurrency) =>
 	        `https://api.frankfurter.dev/v1/latest?base=${baseCurrency}`,
-	      keepUnusedDataFor: 900,
 	    }),
 
 	    getMarketHistory: builder.query({

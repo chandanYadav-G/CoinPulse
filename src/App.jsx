@@ -30,7 +30,6 @@ import SearchBar from './components/SearchBar'
 
 const coinColors = ['#4f8f83', '#8b79b5', '#d58c70', '#c4a354', '#6686a3']
 
-
 const App = () => {
    // Keeping dashboard controls in Redux so that all panels stay sync.
    const dispatch = useDispatch()
@@ -48,13 +47,13 @@ const App = () => {
    } = useGetMarketDataQuery(baseCurrency.toLowerCase())
 
    const { currentData: historyData, isError: hasHistoryError } =
-	useGetMarketHistoryQuery({
-	  ids: selectedCoinIds,
-	  currency: baseCurrency.toLowerCase(),
-	  days: range,
-    })
+  	useGetMarketHistoryQuery({
+  	  ids: selectedCoinIds,
+  	  currency: baseCurrency.toLowerCase(),
+  	  days: range,
+      })
 
-    const { currentData: exchangeRates, isError: hasExchangeRatesError } =
+   const { currentData: exchangeRates, isError: hasExchangeRatesError } =
     useGetExchangeRatesQuery(baseCurrency.toLowerCase())
 
     const currencyRate =
@@ -99,7 +98,7 @@ const App = () => {
       : []
 
 
-    const chartLabels = historyData?.labels?.length ? historyData.labels : []
+  const chartLabels = historyData?.labels?.length ? historyData.labels : []
 
   // Building one chart series per selected coin, using a stable rotating color palette.
   const chartData = {
@@ -162,7 +161,7 @@ const App = () => {
     dispatch(setSelectedCoinIds([coin.id]));
   }
 
-  // Ignore currency codes that are not offered by the dashboard.
+  // Ignoring currency codes that are not offered by the dashboard.
   const handleCurrencyChange = (code) => {
     if (currencies.some(({ code: currencyCode }) => currencyCode === code)) {
       dispatch(setBaseCurrency(code));
@@ -180,60 +179,94 @@ const App = () => {
       ? 'Live CoinGecko data is temporarily unavailable.'
       : 'Live exchange rates are temporarily unavailable.'
 
-  // Show the seven largest market caps in descending order.
+  // Showing all the largest market caps in descending order.
   const displayedMarketCoins = [...coins]
     .sort((a, b) => (b.market_cap ?? 0) - (a.market_cap ?? 0))
-    .slice(0, 7)
+    
+return (
+  <div className="min-h-screen bg-[#f1f5f0]">
+    <DashboardHeader />
 
-	return (
-		<div> 
-			<DashboardHeader />
-			<main>
-				<section>
-					<SearchBar 
-            baseCurrency={baseCurrency}
-            search={search}
-            searchMatches={searchMatches}
-            onCurrencyChange={handleCurrencyChange}
-            onSearchChange={(value) => dispatch(setSearch(value))}
-            onChooseCoin={chooseCoin}
-          />
-					<PriceChart 
-            activeCoins={activeCoins}
-            baseCurrency={baseCurrency}
-            chartData={chartData}
-            chartOptions={chartOptions}
-            chartType={chartType}
-            coins={coins}
-            range={range}
-            selectedCoinIds={selectedCoinIds}
-            onChartTypeChange={(type) => dispatch(setChartType(type))}
-            onRangeChange={(days) => dispatch(setRange(days))}
-            onSelectedCoinsChange={(ids) => dispatch(setSelectedCoinIds(ids))}
-          />
-					<div> 
-						<PortfolioCard 
+    <main className="mx-auto w-[calc(100%-64px)] max-w-[1420px] py-[30px] max-[600px]:w-[calc(100%-24px)] max-[600px]:py-4">
+      <div
+        className="
+          grid grid-cols-[minmax(0,2.75fr)_minmax(280px,1fr)]
+          items-stretch gap-[20px]
+          max-[850px]:grid-cols-1
+          max-[850px]:gap-4
+        "
+      >
+        {/* Left column: search, chart, and bottom cards */}
+        <div className="grid min-w-0 grid-cols-2 content-start gap-[18px] max-[600px]:grid-cols-1">
+          {/* Search spans both columns */}
+          <div className="col-span-2 min-w-0 max-[600px]:col-span-1">
+            <SearchBar
+              baseCurrency={baseCurrency}
+              search={search}
+              searchMatches={searchMatches}
+              onCurrencyChange={handleCurrencyChange}
+              onSearchChange={(value) => dispatch(setSearch(value))}
+              onChooseCoin={chooseCoin}
+            />
+          </div>
+
+          {/* Price chart spans both columns */}
+          <div className="col-span-2 min-w-0 max-[600px]:col-span-1">
+            <PriceChart
+              activeCoins={activeCoins}
+              baseCurrency={baseCurrency}
+              chartData={chartData}
+              chartOptions={chartOptions}
+              chartType={chartType}
+              coins={coins}
+              range={range}
+              selectedCoinIds={selectedCoinIds}
+              onChartTypeChange={(type) =>
+                dispatch(setChartType(type))
+              }
+              onRangeChange={(days) => dispatch(setRange(days))}
+              onSelectedCoinsChange={(ids) =>
+                dispatch(setSelectedCoinIds(ids))
+              }
+            />
+          </div>
+
+          {/* Bottom-left card */}
+          <div className="min-w-0">
+            <PortfolioCard
               baseCurrency={baseCurrency}
               currencyRate={currencyRate}
             />
-						<ExchangeCard 
+          </div>
+
+          {/* Bottom-right card */}
+          <div className="min-w-0">
+            <ExchangeCard
               baseCurrency={baseCurrency}
               coins={coins}
               coinById={coinById}
               exchangeRates={exchangeRates}
             />
-					</div>
-				</section>
-				<MarketCapList 
-          coins={displayedMarketCoins}
-          baseCurrency={baseCurrency}
-          isFetching={isFetchingMarkets || isFetchingLivePrices}
-          selectedCoinIds={selectedCoinIds}
-          onSelectCoin={(coin) => dispatch(setSelectedCoinIds([coin.id]))}
-        />
-			</main>
-		</div>
-	)
+          </div>
+        </div>
+
+        {/* Right column: market cap list */}
+        <div className="min-w-0 max-[850px]:row-start-2">
+          <MarketCapList
+            coins={displayedMarketCoins}
+            baseCurrency={baseCurrency}
+            isFetching={isFetchingMarkets || isFetchingLivePrices}
+            selectedCoinIds={selectedCoinIds}
+            onSelectCoin={(coin) =>
+              dispatch(setSelectedCoinIds([coin.id]))
+            }
+          />
+        </div>
+      </div>
+    </main>
+  </div>
+)
+
 }
 
 export default App

@@ -10,7 +10,7 @@ const MarketCapList = ({
 }) => {
   return (
     // Each row selects a coin for the chart and indicates its 24-hour movement.
-    <aside className='flex min-h-[586px] flex-col self-stretch overflow-hidden rounded-[10px] border border-[#e0e8e0] bg-[#fffefa] shadow-[0_3px_12px_#344b3b0a] max-[850px]:min-h-0'>
+    <aside className='flex h-[600px] min-h-0 flex-col self-start overflow-hidden rounded-[10px] border border-[#e0e8e0] bg-[#fffefa] shadow-[0_3px_12px_#344b3b0a] max-[850px]:h-[586px] max-[600px]:h-[500px]'>
       <div className='flex min-h-[86px] items-start justify-between px-[22px] pb-[14px] pt-[22px]'>
         <h1 className='m-0 text-[15px] font-semibold text-[#293b34]'>
           Cryptocurrency by
@@ -19,13 +19,13 @@ const MarketCapList = ({
         </h1>
         
       </div>
-      <div className='flex flex-1 flex-col max-[850px]:grid max-[850px]:grid-cols-2 max-[380px]:flex max-[380px]:flex-col'>
+      <div className='min-h-0 flex-1 overflow-y-auto overscroll-contain'>
         {coins.map((coin) => {
           const change = coin.price_change_percentage_24h ?? 0
 
           return (
             <button
-              className={`grid min-h-[67px] w-full cursor-pointer grid-cols-[minmax(0,1fr)_auto] grid-rows-2 content-center items-center border-0 border-t border-solid border-t-[#eaf0e9] bg-[#fffefa] px-[22px] text-left hover:bg-[#f4f7f2] first:border-t-transparent max-[850px]:even:border-l max-[850px]:even:border-l-[#eaf0e9] max-[850px]:[&:nth-child(2)]:border-t-transparent max-[380px]:border-l-0 max-[380px]:[&:nth-child(2)]:border-t-[#eaf0e9]`}
+              className={`grid min-h-[67px] shrink-0 w-full cursor-pointer grid-cols-[minmax(0,1fr)_auto] grid-rows-2 content-center items-center border-0 border-t border-solid border-t-[#eaf0e9] bg-[#fffefa] px-[22px] text-left hover:bg-[#f4f7f2] first:border-t-transparent max-[850px]:even:border-l max-[850px]:even:border-l-[#eaf0e9] max-[850px]:[&:nth-child(2)]:border-t-transparent max-[380px]:border-l-0 max-[380px]:[&:nth-child(2)]:border-t-[#eaf0e9]`}
               type='button'
               key={coin.id}
               onClick={() => onSelectCoin(coin)}
